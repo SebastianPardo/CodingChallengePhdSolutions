@@ -14,7 +14,6 @@ class IndexBook {
         if (session != null) {
             this.Utilities.manageRequest({
                 url: 'Order/GetByNumber?number=' + session, type: 'GET', callback: response => {
-                    debugger
                     $('#itemsCart').html('<div id="itemsCart">' + response.bookByOrder.length + '</div>')
                 }
             })

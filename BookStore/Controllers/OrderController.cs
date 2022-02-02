@@ -21,6 +21,11 @@ namespace BookStore.Controllers
       this.BookByOrderManager = new BookByOrderManager(context);
     }
 
+    public IActionResult Index()
+    {
+      return View();
+    }
+
     [HttpPost]
     public JsonResult Create(BookByOrder bookByOrder)
     {

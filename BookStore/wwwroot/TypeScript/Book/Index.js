@@ -11,7 +11,6 @@ var IndexBook = /** @class */ (function () {
         if (session != null) {
             this.Utilities.manageRequest({
                 url: 'Order/GetByNumber?number=' + session, type: 'GET', callback: function (response) {
-                    debugger;
                     $('#itemsCart').html('<div id="itemsCart">' + response.bookByOrder.length + '</div>');
                 }
             });

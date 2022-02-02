@@ -7,13 +7,13 @@
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" type="text/css" href="~/lib/SweetAlert2/dist/sweetalert2.min.css">
     <link rel="stylesheet" type="text/css" href="~/lib/materializecss/materialize.min.css">
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/SweetAlert2/dist/sweetalert2.min.js"></script>
     <script src="~/lib/materializecss/js/global.js"></script>
     <script src="~/lib/materializecss/js/cash.js"></script>
@@ -63,7 +63,7 @@
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li>
                         <span class="badge" style="color:white"><div id="itemsCart"></div></span>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="material-icons">shopping_cart</i></a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index"><i class="material-icons white-text text-white-50">shopping_cart</i></a>
                     </li>
                 </ul>
                 <ul id="slide-out" class="sidenav">
@@ -75,7 +75,7 @@
                             <a asp-area="" asp-controller="Book" asp-action="Index"><span class="name">BookStore</span></a>
                         </div>
                     </li>
-                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="material-icons">shopping_cart</i>Shopping Cart</a></li>
+                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index"><i class="material-icons">shopping_cart</i>Shopping Cart</a></li>
                 </ul>
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             </div>
