@@ -35,6 +35,25 @@ namespace BookStore
         }).ToList();
     }
 
+    public Book GetById(int id)
+    {
+      return context.Book.Join(
+        context.Author,
+        book => book.AuthorId,
+        author => author.Id,
+        (book, author) => new Book
+        {
+          Id = book.Id,
+          Author = author,
+          CoverImage = book.CoverImage,
+          Description = book.Description,
+          Price = book.Price,
+          Quantity = book.Quantity,
+          ReleaseDate = book.ReleaseDate,
+          Tittle = book.Tittle
+        }).Where(book => book.Id == id).FirstOrDefault();
+    }
+
     public Book Update(Book book)
     {
       return context.Book.Update(book).Entity;

@@ -17,6 +17,7 @@ var BookCard = /** @class */ (function () {
         };
         this.AddClickBtnAdd = function (bookId) {
             $('#btnAdd' + bookId).click(function (e) {
+                var session = _this.Utilities.ReadCookie("bookStoreSession");
                 _this.Utilities.manageRequest({
                     url: 'Order/Create', type: 'POST',
                     data: {
@@ -26,7 +27,7 @@ var BookCard = /** @class */ (function () {
                         Quantity: 0,
                         Order: {
                             Id: 0,
-                            Number: 0,
+                            Number: session == null ? 0 : session,
                             DateOrder: new Date(),
                         },
                     },
@@ -41,7 +42,7 @@ var BookCard = /** @class */ (function () {
         this.card = '<div class="col s6 m3">' +
             '<div class="card">' +
             '<div class="card-image">' +
-            '<img style="width: 70%;height: 70%;border-radius: 50%;margin-left: auto;margin-right: auto;" src = "#IMAGE">' +
+            '<img style="width: 70%;height: 50%;border-radius: 50%;margin-left: auto;margin-right: auto;" src = "#IMAGE">' +
             '<a class="btn-floating btn-small halfway-fab waves-effect waves-light green" id="btnAdd#BOOKID"> <i class="material-icons"> add </i></a>' +
             '</div>' +
             '<div class="card-content">' +

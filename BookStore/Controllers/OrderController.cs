@@ -14,11 +14,13 @@ namespace BookStore.Controllers
   {
     private readonly OrderManager OrderManager;
     private readonly BookByOrderManager BookByOrderManager;
+    private readonly BookManager BookManager;
 
     public OrderController(DataModel context)
     {
       this.OrderManager = new OrderManager(context);
       this.BookByOrderManager = new BookByOrderManager(context);
+      this.BookManager = new BookManager(context);
     }
 
     public IActionResult Index()
@@ -30,7 +32,7 @@ namespace BookStore.Controllers
     public JsonResult Create(BookByOrder bookByOrder)
     {
       var order = bookByOrder.Order;
-      if (order.Id == 0)
+      if (order.Number == 0)
       {
         order.DateOrder = DateTime.Now;
         order = OrderManager.add(bookByOrder.Order);
@@ -39,7 +41,19 @@ namespace BookStore.Controllers
         bookByOrder.IdOrder = order.Id;
       }
       bookByOrder.Order = null;
-      bookByOrder = BookByOrderManager.add(bookByOrder);
+      
+      var oldBookByOrder = BookByOrderManager.GetByOrderAndBook(order.Number, bookByOrder.IdBook);
+      if(oldBookByOrder == null)
+      {
+        bookByOrder.Quatity = 1;
+        bookByOrder.IdOrder = order.Number;
+        bookByOrder = BookByOrderManager.add(bookByOrder);
+      }
+      else
+      {
+        oldBookByOrder.Quatity++;
+        bookByOrder = BookByOrderManager.Update(oldBookByOrder);
+      }
       var jsonString = JsonConvert.SerializeObject(order, Formatting.None, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
       return Json(jsonString);
     }

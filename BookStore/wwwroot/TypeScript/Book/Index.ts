@@ -23,15 +23,17 @@ class IndexBook {
                 var colCount = 4;
                 var rowNumber = 0;
                 for (let item of response) {
+                    debugger
                     if (colCount == 4) {
                         this.bookList.append(this.BookCards.GetRow(rowNumber));
+                        colCount--;
                     } else if (colCount == 0) {
                         colCount = 4;
                         rowNumber++;
                     } else {
                         colCount--;
                     }
-                    $("#bookRow" + rowNumber).append(this.BookCards.GetCard(item));
+                    $("#bookRow" + rowNumber).append(this.BookCards.GetCard(item, session));
                     this.BookCards.AddClickBtnAdd(item.id);
                 }
             }

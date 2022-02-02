@@ -29,6 +29,27 @@ namespace BookStore
       }).Where(relation => relation.IdOrder == OrderId).ToList();
     }
 
+    public BookByOrder GetByOrderAndBook(int OrderId, int bookId)
+    {
+      try
+      {
+        return context.BookByOrder.Join(context.Book,
+        bookByOrder => bookByOrder.IdBook, book => book.Id,
+        (bookByOrder, book) => new BookByOrder
+        {
+          Id = bookByOrder.Id,
+          IdOrder = bookByOrder.IdOrder,
+          IdBook = bookByOrder.IdBook,
+          Book = book,
+          IsPreorder = bookByOrder.IsPreorder,
+          Quatity = bookByOrder.Quatity
+        }).Where(relation => relation.IdOrder == OrderId && relation.IdBook == bookId).FirstOrDefault();
+      }catch (Exception e)
+      {
+        return null;
+      }      
+    }
+
     public BookByOrder add(BookByOrder bookByOrder)
     {
       bookByOrder = context.BookByOrder.Add(bookByOrder).Entity;
