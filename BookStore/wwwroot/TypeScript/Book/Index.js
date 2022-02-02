@@ -7,9 +7,17 @@ var IndexBook = /** @class */ (function () {
         this.bookList = $('#BookList');
         this.BookCards = new BookCard();
         this.Utilities = new Utilities();
+        var session = this.Utilities.ReadCookie("bookStoreSession");
+        if (session != null) {
+            this.Utilities.manageRequest({
+                url: 'Order/GetByNumber?number=' + session, type: 'GET', callback: function (response) {
+                    debugger;
+                    $('#itemsCart').html('<div id="itemsCart">' + response.bookByOrder.length + '</div>');
+                }
+            });
+        }
         this.Utilities.manageRequest({
             url: 'Book/GetAll', type: 'GET', callback: function (response) {
-                debugger;
                 var colCount = 4;
                 var rowNumber = 0;
                 for (var _i = 0, response_1 = response; _i < response_1.length; _i++) {
@@ -25,6 +33,7 @@ var IndexBook = /** @class */ (function () {
                         colCount--;
                     }
                     $("#bookRow" + rowNumber).append(_this.BookCards.GetCard(item));
+                    _this.BookCards.AddClickBtnAdd(item.id);
                 }
             }
         });

@@ -60,21 +60,24 @@
                     <img class="circle" style="height: 40px; width: 40px;" src="https://www.kindpng.com/picc/m/679-6791998_online-shopping-free-logo-clipart-png-download-online.png">
                     Book Store
                 </a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="material-icons">shopping_cart</i></a></li>
-                    </ul>
-                    <ul id="slide-out" class="sidenav">
-                        <li>
-                            <div class="user-view">
-                                <a asp-area="" asp-controller="Book" asp-action="Index">
-                                    <img class="circle" style="height: 100px; width: 100px; margin-left: auto; margin-right: auto " src="https://www.kindpng.com/picc/m/679-6791998_online-shopping-free-logo-clipart-png-download-online.png">
-                                </a>
-                                <a asp-area="" asp-controller="Book" asp-action="Index"><span class="name">BookStore</span></a>
-                            </div>
-                        </li>
-                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="material-icons">shopping_cart</i>Shopping Cart</a></li>
-                    </ul>
-                    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li>
+                        <span class="badge" style="color:white"><div id="itemsCart"></div></span>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="material-icons">shopping_cart</i></a>
+                    </li>
+                </ul>
+                <ul id="slide-out" class="sidenav">
+                    <li>
+                        <div class="user-view">
+                            <a asp-area="" asp-controller="Book" asp-action="Index">
+                                <img class="circle" style="height: 100px; width: 100px; margin-left: auto; margin-right: auto " src="https://www.kindpng.com/picc/m/679-6791998_online-shopping-free-logo-clipart-png-download-online.png">
+                            </a>
+                            <a asp-area="" asp-controller="Book" asp-action="Index"><span class="name">BookStore</span></a>
+                        </div>
+                    </li>
+                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="material-icons">shopping_cart</i>Shopping Cart</a></li>
+                </ul>
+                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             </div>
     </header>
     </nav>

@@ -10,9 +10,17 @@ class IndexBook {
     constructor() {
         this.BookCards = new BookCard();
         this.Utilities = new Utilities();
+        var session = this.Utilities.ReadCookie("bookStoreSession");
+        if (session != null) {
+            this.Utilities.manageRequest({
+                url: 'Order/GetByNumber?number=' + session, type: 'GET', callback: response => {
+                    debugger
+                    $('#itemsCart').html('<div id="itemsCart">' + response.bookByOrder.length + '</div>')
+                }
+            })
+        }
         this.Utilities.manageRequest({
             url: 'Book/GetAll', type: 'GET', callback: response => {
-                debugger
                 var colCount = 4;
                 var rowNumber = 0;
                 for (let item of response) {
@@ -25,6 +33,7 @@ class IndexBook {
                         colCount--;
                     }
                     $("#bookRow" + rowNumber).append(this.BookCards.GetCard(item));
+                    this.BookCards.AddClickBtnAdd(item.id);
                 }
             }
         })
