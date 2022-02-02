@@ -18,6 +18,8 @@ namespace BookStore.Models
     public DateTime ReleaseDate { get; set; }
     public decimal Price { get; set; }
     public int Quantity { get; set; }
+    public int TotalNumberOfPages { get; set; }
+
 
     [Required]
     [ForeignKey("Author")]
