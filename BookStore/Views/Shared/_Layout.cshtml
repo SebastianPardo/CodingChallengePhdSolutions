@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BookStore</title>
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" type="text/css" href="~/lib/SweetAlert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/lib/materializecss/materialize.min.css">
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <script src="~/lib/SweetAlert2/dist/sweetalert2.min.js"></script>
+    <script src="~/lib/materializecss/js/global.js"></script>
+    <script src="~/lib/materializecss/js/cash.js"></script>
+    <script src="~/lib/materializecss/js/component.js"></script>
+    <script src="~/lib/materializecss/js/anime.min.js"></script>
+    <script src="~/lib/materializecss/js/autocomplete.js"></script>
+    <script src="~/lib/materializecss/js/buttons.js"></script>
+    <script src="~/lib/materializecss/js/cards.js"></script>
+    <script src="~/lib/materializecss/js/carousel.js"></script>
+    <script src="~/lib/materializecss/js/characterCounter.js"></script>
+    <script src="~/lib/materializecss/js/chips.js"></script>
+    <script src="~/lib/materializecss/js/collapsible.js"></script>
+    <script src="~/lib/materializecss/js/datepicker.js"></script>
+    <script src="~/lib/materializecss/js/dropdown.js"></script>
+    <script src="~/lib/materializecss/js/forms.js"></script>
+    <script src="~/lib/materializecss/js/materialbox.js"></script>
+    <script src="~/lib/materializecss/js/modal.js"></script>
+    <script src="~/lib/materializecss/js/parallax.js"></script>
+    <script src="~/lib/materializecss/js/pushpin.js"></script>
+    <script src="~/lib/materializecss/js/range.js"></script>
+    <script src="~/lib/materializecss/js/scrollspy.js"></script>
+    <script src="~/lib/materializecss/js/select.js"></script>
+    <script src="~/lib/materializecss/js/sidenav.js"></script>
+    <script src="~/lib/materializecss/js/slider.js"></script>
+    <script src="~/lib/materializecss/js/tabs.js"></script>
+    <script src="~/lib/materializecss/js/tapTarget.js"></script>
+    <script src="~/lib/materializecss/js/timepicker.js"></script>
+    <script src="~/lib/materializecss/js/toasts.js"></script>
+    <script src="~/lib/materializecss/js/tooltip.js"></script>
+    <script src="~/lib/materializecss/js/waves.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.sidenav').sidenav();
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="brand-logo">
+                    <img class="circle" style="height: 40px; width: 40px;" src="https://www.kindpng.com/picc/m/679-6791998_online-shopping-free-logo-clipart-png-download-online.png">
+                    Book Store
+                </a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="material-icons">shopping_cart</i></a></li>
+                    </ul>
+                    <ul id="slide-out" class="sidenav">
+                        <li>
+                            <div class="user-view">
+                                <a asp-area="" asp-controller="Home" asp-action="Index">
+                                    <img class="circle" style="height: 100px; width: 100px; margin-left: auto; margin-right: auto " src="https://www.kindpng.com/picc/m/679-6791998_online-shopping-free-logo-clipart-png-download-online.png">
+                                </a>
+                                <a asp-area="" asp-controller="Home" asp-action="Index"><span class="name">BookStore</span></a>
+                            </div>
+                        </li>
+                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="material-icons">shopping_cart</i>Shopping Cart</a></li>
+                    </ul>
+                    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            </div>
+    </header>
+    </nav>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - BookStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
