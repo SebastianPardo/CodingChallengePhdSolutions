@@ -29,13 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\Typings\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\TypeScript\Home\Index.js" />
-    <None Include="wwwroot\TypeScript\Home\Index.js.map" />
+    <None Include="wwwroot\TypeScript\Book\Index.js" />
+    <None Include="wwwroot\TypeScript\Book\Index.js.map" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

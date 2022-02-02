@@ -16,7 +16,7 @@ namespace BookStore.Models
 
     public DateTime DateOrder { get; set; }
 
-    public virtual ICollection<Book> Book { get; set; }
+    public virtual ICollection<BookByOrder> BookByOrder { get; set; }
 
   }
 }
