@@ -1,0 +1,12 @@
+﻿@model IEnumerable<BookStore.Models.BookByOrder>
+
+<h3>Historic Orders</h3>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>item.Book.Name</li>
+        <li>item.Quatity</li>
+        <li>item.Book.Price</li>
+        <li>0</li>
+    }
+</ul>

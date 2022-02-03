@@ -97,5 +97,10 @@ namespace BookStore.Controllers
       order.BookByOrder = BookByOrderManager.GetByOrder(order.Id);
       return Json(order);
     }
+
+    public IActionResult OrderViewComponent()
+    {
+      return ViewComponent("HistoricOrders", new ());
+    }
   }
 }
