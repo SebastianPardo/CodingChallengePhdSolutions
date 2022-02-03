@@ -32,7 +32,7 @@ namespace BookStore
           Quantity = book.Quantity,
           ReleaseDate = book.ReleaseDate,
           Tittle = book.Tittle
-        }).ToList();
+        }).Where(book => book.Quantity > 0).ToList();
     }
 
     public Book GetById(int id)

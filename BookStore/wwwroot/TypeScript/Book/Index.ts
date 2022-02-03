@@ -11,7 +11,7 @@ class IndexBook {
         this.BookCards = new BookCard();
         this.Utilities = new Utilities();
         var session = this.Utilities.ReadCookie("bookStoreSession");
-        if (session != null) {
+        if (session != null && session != 'null') {
             this.Utilities.manageRequest({
                 url: 'Order/GetByNumber?number=' + session, type: 'GET', callback: response => {
                     $('#itemsCart').html('<div id="itemsCart">' + response.bookByOrder.length + '</div>')
@@ -23,7 +23,6 @@ class IndexBook {
                 var colCount = 4;
                 var rowNumber = 0;
                 for (let item of response) {
-                    debugger
                     if (colCount == 4) {
                         this.bookList.append(this.BookCards.GetRow(rowNumber));
                         colCount--;

@@ -57,6 +57,40 @@ namespace BookStore.Controllers
       var jsonString = JsonConvert.SerializeObject(order, Formatting.None, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
       return Json(jsonString);
     }
+
+    [HttpPut]
+    public JsonResult Update (BookByOrder bookByOrder)
+    {
+      var oldBookByOrder = BookByOrderManager.GetByOrderAndBook(bookByOrder.IdOrder, bookByOrder.IdBook);
+      oldBookByOrder.Quatity = bookByOrder.Quatity;
+      return Json(BookByOrderManager.Update(oldBookByOrder)!=null);
+    }
+
+    [HttpPost]
+    public JsonResult CheckOut(Order order)
+    {
+      order = OrderManager.GetByNumber(order.Number);
+      order.BookByOrder = BookByOrderManager.GetByOrder(order.Id);
+      foreach(var item in order.BookByOrder)
+      {
+        if (item.Quatity < item.Book.Quantity)
+        {
+          item.IsPreorder = false;
+          BookByOrderManager.Update(item);
+          item.Book.Quantity = item.Book.Quantity - item.Quatity;
+          BookManager.Update(item.Book);
+        }
+        else
+        {
+          item.Quatity = 0;
+        }
+      }
+
+      var jsonString = JsonConvert.SerializeObject(order, Formatting.None, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+      return Json(jsonString);
+    }
+
+    [HttpGet]
     public JsonResult GetByNumber(int number)
     {
       var order = OrderManager.GetByNumber(number);

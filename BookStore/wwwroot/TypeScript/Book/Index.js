@@ -8,7 +8,7 @@ var IndexBook = /** @class */ (function () {
         this.BookCards = new BookCard();
         this.Utilities = new Utilities();
         var session = this.Utilities.ReadCookie("bookStoreSession");
-        if (session != null) {
+        if (session != null && session != 'null') {
             this.Utilities.manageRequest({
                 url: 'Order/GetByNumber?number=' + session, type: 'GET', callback: function (response) {
                     $('#itemsCart').html('<div id="itemsCart">' + response.bookByOrder.length + '</div>');
@@ -21,7 +21,6 @@ var IndexBook = /** @class */ (function () {
                 var rowNumber = 0;
                 for (var _i = 0, response_1 = response; _i < response_1.length; _i++) {
                     var item = response_1[_i];
-                    debugger;
                     if (colCount == 4) {
                         _this.bookList.append(_this.BookCards.GetRow(rowNumber));
                         colCount--;
