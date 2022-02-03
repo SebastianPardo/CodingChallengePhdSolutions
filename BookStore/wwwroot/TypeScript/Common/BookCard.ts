@@ -21,8 +21,9 @@
 
     GetCard = (book) => {
         var card = this.card.replace('#TITTLE', book.tittle)
+        var date = new Date(book.releaseDate);
         card = card.replace('#AUTHOR', book.author.name)
-        card = card.replace('#DATE', book.releaseDate)
+        card = card.replace('#DATE', date.toDateString())
         card = card.replace('#DESCRIPTION', book.description)
         card = card.replace('#PRICE', book.price)
         card = card.replace('#IMAGE', book.coverImage)
