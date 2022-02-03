@@ -98,9 +98,9 @@ namespace BookStore.Controllers
       return Json(order);
     }
 
-    public IActionResult OrderViewComponent()
+    public IActionResult HistoricOrders()
     {
-      return ViewComponent("HistoricOrders", new ());
+      return View();
     }
   }
 }
