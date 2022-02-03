@@ -1,12 +1,33 @@
 ﻿@model IEnumerable<BookStore.Models.BookByOrder>
 
 <h3>Historic Orders</h3>
-<ul>
-    @foreach (var item in Model)
-    {
-        <li>item.Book.Name</li>
-        <li>item.Quatity</li>
-        <li>item.Book.Price</li>
-        <li>0</li>
-    }
-</ul>
+<table class="center responsive-table">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody id="orderList">
+        @{decimal totalValue = 0;}
+        @foreach (var item in Model)
+        {
+        var total = item.Quatity * item.Book.Price;
+        totalValue = totalValue + total;
+        <tr>
+            <td>@item.Book.Tittle</td>
+            <td>@item.Quatity</td>
+            <td>@item.Book.Price</td>
+            <td>@total</td>
+        </tr>
+        }
+    </tbody>
+    <div class="row">
+        <div class="input-field col s6">
+            <input value="@totalValue" id="first_name2" type="text" class="validate">
+            <label class="active" for="first_name2">Total</label>
+        </div>
+    </div>
+</table>
