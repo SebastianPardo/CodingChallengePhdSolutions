@@ -35,6 +35,7 @@ var BookCard = /** @class */ (function () {
                         var obj = JSON.parse(response);
                         _this.Utilities.CreateCookie("bookStoreSession", obj.Number, 7);
                         swal.fire('Good!', 'Added to cart.', 'success');
+                        $('#itemsCart').text(+$('#itemsCart').text() + 1);
                     }
                 });
             });

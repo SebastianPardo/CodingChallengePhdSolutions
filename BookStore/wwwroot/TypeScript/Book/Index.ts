@@ -14,7 +14,7 @@ class IndexBook {
         if (session != null && session != 'null') {
             this.Utilities.manageRequest({
                 url: 'Order/GetByNumber?number=' + session, type: 'GET', callback: response => {
-                    $('#itemsCart').html('<div id="itemsCart">' + response.bookByOrder.length + '</div>')
+                    $('#itemsCart').text(+$('#itemsCart').text() + response.bookByOrder.length);
                 }
             })
         }
