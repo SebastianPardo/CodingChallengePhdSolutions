@@ -45,7 +45,7 @@ class IndexOrder {
                 for (let item of response.bookByOrder) {
                     this.orderList.append('<tr>'
                         + '<td>' + item.book.tittle + '</td>'
-                        + '<td scope="row"> <div class="input-field col s6"><input value="' + item.quatity + '" placeholder = "Placeholder" id = "book'+ item.book.id +'" type = "number" class= "validate" ></div></td>'
+                        + '<td> <div class="input-field col s4"><input value="' + item.quatity + '" placeholder = "Placeholder" id = "book' + item.book.id +'" type = "number" class= "validate" style="width:auto"></div></td>'
                         + '<td>' + item.book.price + '</td>'
                         + '<td>' + (+item.quatity * +item.book.price) + ' </td>'
                         + '</tr>');

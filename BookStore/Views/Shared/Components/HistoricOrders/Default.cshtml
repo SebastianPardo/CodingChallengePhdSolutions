@@ -1,33 +1,45 @@
 ﻿@model IEnumerable<BookStore.Models.BookByOrder>
 
 <h3>Historic Orders</h3>
-<table class="center responsive-table">
-    <thead>
-        <tr>
-            <th>Book</th>
-            <th>Quantity</th>
-            <th>Unit Price ($)</th>
-            <th>Total ($)</th>
-        </tr>
-    </thead>
-    <tbody id="orderList">
-        @{decimal totalValue = 0;}
-        @foreach (var item in Model)
-        {
-        var total = item.Quatity * item.Book.Price;
-        totalValue = totalValue + total;
-        <tr>
-            <td>@item.Book.Tittle</td>
-            <td>@item.Quatity</td>
-            <td>@item.Book.Price</td>
-            <td>@total</td>
-        </tr>
-        }
-    </tbody>
-    <div class="row">
-        <div class="input-field col s6">
-            <span>Total: $</span>
-            <span>@totalValue</span>
-        </div>
+<div class="row">
+    <div class="col s12">
+        <table class="responsive-table highlight center">
+            <thead>
+                <tr>
+                    <th>Book</th>
+                    <th>Quantity</th>
+                    <th>Unit Price ($)</th>
+                    <th>Total ($)</th>
+                </tr>
+            </thead>
+            <tbody id="orderList">
+                @{
+                    decimal totalValue = 0;
+                    int totalQuantity = 0;
+                }
+                @foreach (var item in Model)
+                {
+                    var total = item.Quatity * item.Book.Price;
+                    totalValue = totalValue + total;
+                    totalQuantity = totalQuantity + item.Quatity;
+                    <tr>
+                        <td>@item.Book.Tittle</td>
+                        <td>@item.Quatity</td>
+                        <td>@item.Book.Price</td>
+                        <td>@total</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-</table>
+</div>
+<div class="row">
+    <div class="col s3">
+        @Html.Label("TotalQuantityLabel", "Tota Quantity", new { @class = "control-label" })
+        @Html.TextBox("TotalQuantity", totalQuantity, new { name = "Total Quantity", @class = "form-control", disabled = "disabled" })
+    </div>
+    <div class="col s3">
+        @Html.Label("TotalValueLabel", "Total", new { @class = "control-label" })
+        @Html.TextBox("TotalValue", @"$" + totalValue.ToString(), new { name = "Total", @class = "form-control", disabled = "disabled" })
+    </div>
+</div>

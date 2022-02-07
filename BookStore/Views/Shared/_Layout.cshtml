@@ -7,43 +7,14 @@
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" type="text/css" href="~/lib/materialize/css/materialize.min.css">
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" type="text/css" href="~/lib/SweetAlert2/dist/sweetalert2.min.css">
-    <link rel="stylesheet" type="text/css" href="~/lib/materializecss/materialize.min.css">
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
     <script src="~/lib/SweetAlert2/dist/sweetalert2.min.js"></script>
-    <script src="~/lib/materializecss/js/global.js"></script>
-    <script src="~/lib/materializecss/js/cash.js"></script>
-    <script src="~/lib/materializecss/js/component.js"></script>
-    <script src="~/lib/materializecss/js/anime.min.js"></script>
-    <script src="~/lib/materializecss/js/autocomplete.js"></script>
-    <script src="~/lib/materializecss/js/buttons.js"></script>
-    <script src="~/lib/materializecss/js/cards.js"></script>
-    <script src="~/lib/materializecss/js/carousel.js"></script>
-    <script src="~/lib/materializecss/js/characterCounter.js"></script>
-    <script src="~/lib/materializecss/js/chips.js"></script>
-    <script src="~/lib/materializecss/js/collapsible.js"></script>
-    <script src="~/lib/materializecss/js/datepicker.js"></script>
-    <script src="~/lib/materializecss/js/dropdown.js"></script>
-    <script src="~/lib/materializecss/js/forms.js"></script>
-    <script src="~/lib/materializecss/js/materialbox.js"></script>
-    <script src="~/lib/materializecss/js/modal.js"></script>
-    <script src="~/lib/materializecss/js/parallax.js"></script>
-    <script src="~/lib/materializecss/js/pushpin.js"></script>
-    <script src="~/lib/materializecss/js/range.js"></script>
-    <script src="~/lib/materializecss/js/scrollspy.js"></script>
-    <script src="~/lib/materializecss/js/select.js"></script>
-    <script src="~/lib/materializecss/js/sidenav.js"></script>
-    <script src="~/lib/materializecss/js/slider.js"></script>
-    <script src="~/lib/materializecss/js/tabs.js"></script>
-    <script src="~/lib/materializecss/js/tapTarget.js"></script>
-    <script src="~/lib/materializecss/js/timepicker.js"></script>
-    <script src="~/lib/materializecss/js/toasts.js"></script>
-    <script src="~/lib/materializecss/js/tooltip.js"></script>
-    <script src="~/lib/materializecss/js/waves.js"></script>
     <script src="~/TypeScript/Common/Utilities.js"></script>
     <script src="~/TypeScript/Common/BookCard.js"></script>
     <script>
@@ -51,10 +22,11 @@
             $('.sidenav').sidenav();
         });
     </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
     <header>
-        <nav>
+        <nav class="blue-grey lighten-1">
             <div class="nav-wrapper">
                 <a asp-area="" asp-controller="Book" asp-action="Index" class="brand-logo">
                     <img class="circle" style="height: 40px; width: 40px;" src="https://www.kindpng.com/picc/m/679-6791998_online-shopping-free-logo-clipart-png-download-online.png">
@@ -98,5 +70,6 @@
     </footer>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script type="text/javascript" src="~/lib/materialize/js/materialize.min.js"></script>
 </body>
 </html>
