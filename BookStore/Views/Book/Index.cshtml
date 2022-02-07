@@ -1,9 +1,43 @@
-﻿@{
+﻿@model IEnumerable<BookStore.Models.Book>
+@{
     ViewData["Title"] = "Home Page";
+    var countColumns = 1;
 }
 
-<div id="BookList">
-</div>
+@foreach (var book in Model)
+{
+    var btn = "btnAdd" + book.Id.ToString();
+    if (countColumns == 1)
+    {
+        @Html.Raw("<div class=row>");
+    }
+    <div class="col s6 m3">
+        <div class="card">
+            <div class="card-image">
+                <img style="width: 70%;height: 50%;border-radius: 50%;margin-left: auto;margin-right: auto;" src=@book.CoverImage>
+                <form asp-controller="Order" asp-action="Create" method="post" asp->
+                    <button class="btn-floating btn-large waves-effect waves-light green" type="submit" name="action">
+                        <i class="material-icons right">add</i>
+                    </button>                    
+                </form>
+            </div>
+            <div class="card-content">
+                <span class="card-title">@book.Tittle</span>
+                <p>@book.Author.Name - @book.ReleaseDate</p>
+                <p>@book.Description</p>
+                <span class="card-title">$ @book.Price</span>
+            </div>
+        </div>
+    </div>
+    if (countColumns == 4)
+    {
+        @Html.Raw("</div>");
+        countColumns = 1;
+    }
+    else
+    {
+        countColumns++;
+    }
+}
 
-
-<script src="~/TypeScript/Book/Index.js"></script>
+@*<script src="~/TypeScript/Book/Index.js"></script>*@

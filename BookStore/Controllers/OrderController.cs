@@ -29,7 +29,7 @@ namespace BookStore.Controllers
     }
 
     [HttpPost]
-    public JsonResult Create(BookByOrder bookByOrder)
+    public IActionResult Create(BookByOrder bookByOrder)
     {
       var order = bookByOrder.Order;
       if (order.Number == 0)
