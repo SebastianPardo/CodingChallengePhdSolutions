@@ -13,7 +13,7 @@
             '<span class="card-title">#TITTLE</span>' +
             '<p>#AUTHOR - #DATE</p>' +
             '<p>#DESCRIPTION</p>' +
-            '<span class="card-title">#PRICE</span>' +
+            '<span class="card-title">$ #PRICE</span>' +
             '</div>' +
             '</div>' +
             '</div>'

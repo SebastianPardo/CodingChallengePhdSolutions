@@ -42,7 +42,7 @@ namespace BookStore.Controllers
       }
       bookByOrder.Order = null;
       
-      var oldBookByOrder = BookByOrderManager.GetByOrderAndBook(order.Number, bookByOrder.IdBook);
+      var oldBookByOrder = BookByOrderManager.GetCompleteByOrderBook(order.Number, bookByOrder.IdBook);
       if(oldBookByOrder == null)
       {
         bookByOrder.Quatity = 1;
@@ -61,7 +61,7 @@ namespace BookStore.Controllers
     [HttpPut]
     public JsonResult Update (BookByOrder bookByOrder)
     {
-      var oldBookByOrder = BookByOrderManager.GetByOrderAndBook(bookByOrder.IdOrder, bookByOrder.IdBook);
+      var oldBookByOrder = BookByOrderManager.GetCompleteByOrderBook(bookByOrder.IdOrder, bookByOrder.IdBook);
       oldBookByOrder.Quatity = bookByOrder.Quatity;
       return Json(BookByOrderManager.Update(oldBookByOrder)!=null);
     }
@@ -70,7 +70,7 @@ namespace BookStore.Controllers
     public JsonResult CheckOut(Order order)
     {
       order = OrderManager.GetByNumber(order.Number);
-      order.BookByOrder = BookByOrderManager.GetByOrder(order.Id);
+      order.BookByOrder = BookByOrderManager.GetByOrder(order.Id, true);
       foreach(var item in order.BookByOrder)
       {
         if (item.Quatity < item.Book.Quantity)
@@ -94,7 +94,7 @@ namespace BookStore.Controllers
     public JsonResult GetByNumber(int number)
     {
       var order = OrderManager.GetByNumber(number);
-      order.BookByOrder = BookByOrderManager.GetByOrder(order.Id);
+      order.BookByOrder = BookByOrderManager.GetByOrder(order.Id, true);
       return Json(order);
     }
 

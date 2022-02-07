@@ -1,5 +1,6 @@
 ﻿using BookStore.Data;
 using BookStore.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace BookStore
       this.context = context;
     }
 
-    public List<BookByOrder> GetByOrder(int OrderId)
+    public List<BookByOrder> GetByOrder(int OrderId, bool IsPreOrder)
     {
       return context.BookByOrder.Join(context.Book, bookByOrder => bookByOrder.IdBook, book => book.Id, (bookByOrder, book) =>
       new BookByOrder
@@ -26,28 +27,71 @@ namespace BookStore
         Book = book,
         IsPreorder = bookByOrder.IsPreorder,
         Quatity = bookByOrder.Quatity
-      }).Where(relation => relation.IdOrder == OrderId).ToList();
+      }).Where(relation => relation.IdOrder == OrderId && relation.IsPreorder == IsPreOrder).ToList();
     }
 
-    public BookByOrder GetByOrderAndBook(int OrderId, int bookId)
+    public BookByOrder GetCompleteByOrderBook(int OrderId, int bookId)
     {
       try
       {
         return context.BookByOrder.Join(context.Book,
-        bookByOrder => bookByOrder.IdBook, book => book.Id,
+        bookByOrder => bookByOrder.IdBook,
+        book => book.Id,
         (bookByOrder, book) => new BookByOrder
         {
-          Id = bookByOrder.Id,
           IdOrder = bookByOrder.IdOrder,
-          IdBook = bookByOrder.IdBook,
-          Book = book,
+          Order = null,
+          Quatity = bookByOrder.Quatity,
           IsPreorder = bookByOrder.IsPreorder,
-          Quatity = bookByOrder.Quatity
+          Book = book
+        }
+        ).Join(context.Order,
+        bookByOrder => bookByOrder.IdOrder,
+        order => order.Id,
+        (bookByOrder, order) => new BookByOrder
+        {
+          Quatity = bookByOrder.Quatity,
+          IsPreorder = bookByOrder.IsPreorder,
+          Book = bookByOrder.Book,
+          Order = order
         }).Where(relation => relation.IdOrder == OrderId && relation.IdBook == bookId).FirstOrDefault();
-      }catch (Exception e)
+      }
+      catch (Exception e)
       {
         return null;
-      }      
+      }
+    }
+
+    public Task<List<BookByOrder>> GetHistoric()
+    {
+      try
+      {
+        return context.BookByOrder.Join(context.Book,
+        bookByOrder => bookByOrder.IdBook,
+        book => book.Id,
+        (bookByOrder, book) => new BookByOrder
+        {
+          IdOrder = bookByOrder.IdOrder,
+          Order = null,
+          Quatity = bookByOrder.Quatity,
+          IsPreorder = bookByOrder.IsPreorder,
+          Book = book
+        }
+        ).Join(context.Order,
+        bookByOrder => bookByOrder.IdOrder,
+        order => order.Id,
+        (bookByOrder, order) => new BookByOrder
+        {
+          Quatity = bookByOrder.Quatity,
+          IsPreorder = bookByOrder.IsPreorder,
+          Book = bookByOrder.Book,
+          Order = order
+        }).Where(x => x.IsPreorder == false).ToListAsync();
+      }
+      catch (Exception e)
+      {
+        return null;
+      }
     }
 
     public BookByOrder add(BookByOrder bookByOrder)
