@@ -37,7 +37,7 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="HistoricOrders"><i class="material-icons white-text text-white-50">local_atm</i></a>
                     </li>
                     <li>
-                        <span id="itemsCart" class="badge" style="color:white">0</span>
+                        <span id="itemsCart" class="badge" style="color:white">@ViewData["QuatityCart"]</span>
                         <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index"><i class="material-icons white-text text-white-50">shopping_cart</i></a>
                     </li>
                 </ul>
@@ -45,7 +45,7 @@
                     <li>
                         <div class="user-view">
                             <a asp-area="" asp-controller="Book" asp-action="Index">
-                                <img class="circle" style="height: 100px; width: 100px; margin-left: auto; margin-right: auto " src="https://www.kindpng.com/picc/m/679-6791998_online-shopping-free-logo-clipart-png-download-online.png">
+                                <img class="circle" style="height: 100px; width: 100px; margin-left: auto; margin-right: auto" src="https://www.kindpng.com/picc/m/679-6791998_online-shopping-free-logo-clipart-png-download-online.png">
                             </a>
                             <a asp-area="" asp-controller="Book" asp-action="Index"><span class="name">BookStore</span></a>
                         </div>

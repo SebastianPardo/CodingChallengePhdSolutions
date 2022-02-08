@@ -29,24 +29,34 @@ namespace BookStore.Controllers
     }
 
     [HttpPost]
-    public IActionResult Create(BookByOrder bookByOrder)
+    public void Create(BookByOrder bookByOrder)
     {
-      var order = bookByOrder.Order;
-      if (order.Number == 0)
+      int orderId = 0;
+      Order newOrder = new Order
       {
-        order.DateOrder = DateTime.Now;
-        order = OrderManager.add(bookByOrder.Order);
-        order.Number = order.Id;
-        OrderManager.Update(order);
-        bookByOrder.IdOrder = order.Id;
+        Id = 0,
+        DateOrder = DateTime.Now,
+        Number = 0
+      };
+      if (!Request.Cookies.TryGetValue("bookStoreSession", out string cookie))
+      {
+        newOrder = OrderManager.add(newOrder);
+        newOrder.Number = newOrder.Id;
+        OrderManager.Update(newOrder);
+        bookByOrder.IdOrder = newOrder.Id;
+        orderId = newOrder.Id;
       }
-      bookByOrder.Order = null;
-      
-      var oldBookByOrder = BookByOrderManager.GetCompleteByOrderBook(order.Number, bookByOrder.IdBook);
+      else
+      {
+        orderId = Int16.Parse(cookie);
+      }
+           
+      var oldBookByOrder = BookByOrderManager.GetCompleteByOrderBook(orderId, bookByOrder.IdBook);
       if(oldBookByOrder == null)
       {
         bookByOrder.Quatity = 1;
-        bookByOrder.IdOrder = order.Number;
+        bookByOrder.IdOrder = orderId;
+        bookByOrder.IsPreorder = true;
         bookByOrder = BookByOrderManager.add(bookByOrder);
       }
       else
@@ -54,8 +64,8 @@ namespace BookStore.Controllers
         oldBookByOrder.Quatity++;
         bookByOrder = BookByOrderManager.Update(oldBookByOrder);
       }
-      var jsonString = JsonConvert.SerializeObject(order, Formatting.None, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
-      return Json(jsonString);
+      Response.Cookies.Append("bookStoreSession", bookByOrder.IdOrder.ToString());
+      Response.Redirect("./../");
     }
 
     [HttpPut]
@@ -67,27 +77,29 @@ namespace BookStore.Controllers
     }
 
     [HttpPost]
-    public JsonResult CheckOut(Order order)
+    public void CheckOut(Order order)
     {
-      order = OrderManager.GetByNumber(order.Number);
-      order.BookByOrder = BookByOrderManager.GetByOrder(order.Id, true);
-      foreach(var item in order.BookByOrder)
+      if (Request.Cookies.TryGetValue("bookStoreSession", out string cookie))
       {
-        if (item.Quatity < item.Book.Quantity)
+        order = OrderManager.GetByNumber(Int16.Parse(cookie));
+        order.BookByOrder = BookByOrderManager.GetByOrder(order.Id, true);
+        foreach (var item in order.BookByOrder)
         {
-          item.IsPreorder = false;
-          BookByOrderManager.Update(item);
-          item.Book.Quantity = item.Book.Quantity - item.Quatity;
-          BookManager.Update(item.Book);
+          if (item.Quatity < item.Book.Quantity)
+          {
+            item.IsPreorder = false;
+            BookByOrderManager.Update(item);
+            item.Book.Quantity = item.Book.Quantity - item.Quatity;
+            BookManager.Update(item.Book);
+          }
+          else
+          {
+            item.Quatity = 0;
+          }
         }
-        else
-        {
-          item.Quatity = 0;
-        }
-      }
-
-      var jsonString = JsonConvert.SerializeObject(order, Formatting.None, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
-      return Json(jsonString);
+      }      
+      Response.Cookies.Delete("bookStoreSession");
+      Response.Redirect("./../");
     }
 
     [HttpGet]

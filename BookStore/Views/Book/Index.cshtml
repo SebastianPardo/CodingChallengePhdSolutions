@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<BookStore.Models.Book>
 @{
     ViewData["Title"] = "Home Page";
+    ViewData["QuatityCart"] = ViewBag.cartQuanty;
     var countColumns = 1;
 }
 
@@ -15,11 +16,13 @@
         <div class="card">
             <div class="card-image">
                 <img style="width: 70%;height: 50%;border-radius: 50%;margin-left: auto;margin-right: auto;" src=@book.CoverImage>
-                <form asp-controller="Order" asp-action="Create" method="post" asp->
-                    <button class="btn-floating btn-large waves-effect waves-light green" type="submit" name="action">
+                @using (Html.BeginForm("Create", "Order", FormMethod.Post))
+                {
+                    @Html.Hidden("IdBook", book.Id);
+                    <button value=@book class="btn-floating btn-large waves-effect waves-light green right" style="margin:16px" type="submit" name="action">
                         <i class="material-icons right">add</i>
-                    </button>                    
-                </form>
+                    </button>
+                }
             </div>
             <div class="card-content">
                 <span class="card-title">@book.Tittle</span>

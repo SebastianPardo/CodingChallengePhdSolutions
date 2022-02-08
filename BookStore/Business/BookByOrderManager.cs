@@ -34,27 +34,7 @@ namespace BookStore
     {
       try
       {
-        return context.BookByOrder.Join(context.Book,
-        bookByOrder => bookByOrder.IdBook,
-        book => book.Id,
-        (bookByOrder, book) => new BookByOrder
-        {
-          IdOrder = bookByOrder.IdOrder,
-          Order = null,
-          Quatity = bookByOrder.Quatity,
-          IsPreorder = bookByOrder.IsPreorder,
-          Book = book
-        }
-        ).Join(context.Order,
-        bookByOrder => bookByOrder.IdOrder,
-        order => order.Id,
-        (bookByOrder, order) => new BookByOrder
-        {
-          Quatity = bookByOrder.Quatity,
-          IsPreorder = bookByOrder.IsPreorder,
-          Book = bookByOrder.Book,
-          Order = order
-        }).Where(relation => relation.IdOrder == OrderId && relation.IdBook == bookId).FirstOrDefault();
+        return context.BookByOrder.Where(relation => relation.IdOrder == OrderId && relation.IdBook == bookId).FirstOrDefault();
       }
       catch (Exception e)
       {
