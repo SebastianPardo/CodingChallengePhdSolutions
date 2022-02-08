@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BookStore.Models.Order
+@{
     ViewData["Title"] = "Cart";
 }
 
@@ -14,10 +15,32 @@
                     <th>Total ($)</th>
                 </tr>
             </thead>
-            <tbody id="orderList"></tbody>
+            <tbody>
+                @foreach (var item in Model.BookByOrder)
+                {
+                    var total = item.Quatity * item.Book.Price;
+                    <tr>
+                        @using (Html.BeginForm("Update", "Order", FormMethod.Post))
+                        {
+                            <td>@item.Book.Tittle</td>
+                            <td>
+                                @Html.TextBox("Quatity", item.Quatity, new { name = "Total Quantity", @class = "form-control" })
+                            </td>
+                            <td>@item.Book.Price</td>
+                            <td>@total</td>
+
+                            @Html.Hidden("IdBook", item.Book.Id);
+                            @Html.Hidden("IdOrder", item.IdOrder);
+                            <td><button type="submit" id="btnCheckOut" class="waves-effect waves-light btn">Update</button></td>
+                        }
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 </div>
-<a id="btnCheckOut" class="waves-effect waves-light btn">checkout</a>
+@using (Html.BeginForm("CheckOut", "Order", FormMethod.Post))
+{
+    <button type="submit" id="btnCheckOut" class="waves-effect waves-light btn">checkout</button>
+}
 
-<script src="~/TypeScript/Order/Index.js"></script>

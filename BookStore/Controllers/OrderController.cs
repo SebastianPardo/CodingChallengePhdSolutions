@@ -25,7 +25,13 @@ namespace BookStore.Controllers
 
     public IActionResult Index()
     {
-      return View();
+      if (Request.Cookies.TryGetValue("bookStoreSession", out string cookie))
+      {
+        var order = OrderManager.GetByNumber(Int16.Parse(cookie));
+        order.BookByOrder = BookByOrderManager.GetByOrder(order.Id, true);
+        return View(order);
+      }
+      return View(new Order { BookByOrder = new List<BookByOrder>()});
     }
 
     [HttpPost]
@@ -68,20 +74,21 @@ namespace BookStore.Controllers
       Response.Redirect("./../");
     }
 
-    [HttpPut]
-    public JsonResult Update (BookByOrder bookByOrder)
+    [HttpPost ]
+    public IActionResult Update (BookByOrder bookByOrder)
     {
       var oldBookByOrder = BookByOrderManager.GetCompleteByOrderBook(bookByOrder.IdOrder, bookByOrder.IdBook);
       oldBookByOrder.Quatity = bookByOrder.Quatity;
-      return Json(BookByOrderManager.Update(oldBookByOrder)!=null);
+      BookByOrderManager.Update(oldBookByOrder);
+      return Redirect("./");
     }
 
     [HttpPost]
-    public void CheckOut(Order order)
+    public void CheckOut()
     {
       if (Request.Cookies.TryGetValue("bookStoreSession", out string cookie))
       {
-        order = OrderManager.GetByNumber(Int16.Parse(cookie));
+        var order = OrderManager.GetByNumber(Int16.Parse(cookie));
         order.BookByOrder = BookByOrderManager.GetByOrder(order.Id, true);
         foreach (var item in order.BookByOrder)
         {
